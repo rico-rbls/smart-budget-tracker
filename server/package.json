@@ -1,0 +1,35 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "Smart Budget Tracker Backend",
+  "main": "src/server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "db:setup": "node src/database/setup.js",
+    "db:migrate": "node src/database/setup.js migrate",
+    "db:seed": "node src/database/setup.js seed",
+    "db:reset": "node src/database/setup.js reset",
+    "db:fresh": "node src/database/setup.js fresh",
+    "db:stats": "node src/database/setup.js stats"
+  },
+  "keywords": [
+    "budget",
+    "tracker",
+    "finance"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.3",
+    "multer": "^2.0.2",
+    "pg": "^8.16.3",
+    "tesseract.js": "^6.0.1"
+  }
+}

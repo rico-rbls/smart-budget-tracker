@@ -1,0 +1,10 @@
+# Controllers Directory
+
+Place your route controller files here.
+
+Example structure:
+- auth.controller.js
+- budget.controller.js
+- expense.controller.js
+- user.controller.js
+

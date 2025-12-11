@@ -1,0 +1,10 @@
+# Routes Directory
+
+Place your API route files here.
+
+Example structure:
+- auth.routes.js
+- budget.routes.js
+- expense.routes.js
+- user.routes.js
+

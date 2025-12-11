@@ -1,0 +1,12 @@
+# Pages Directory
+
+Place your page components here.
+
+Example structure:
+- Dashboard.jsx
+- Login.jsx
+- Register.jsx
+- Budgets.jsx
+- Expenses.jsx
+- Reports.jsx
+

@@ -1,0 +1,30 @@
+WALMART SUPERCENTER
+Store #1234
+123 Main Street
+Anytown, USA 12345
+
+Date: 12/10/2024
+Time: 14:30:25
+
+ITEMS PURCHASED:
+--------------------------------
+Milk 2% Gallon         $3.99
+Whole Wheat Bread      $2.49
+Large Eggs Dozen       $4.99
+Bananas (2 lbs)        $1.58
+Chicken Breast         $8.99
+Pasta Sauce            $2.79
+Spaghetti              $1.29
+--------------------------------
+
+SUBTOTAL              $26.12
+TAX (8%)               $2.09
+--------------------------------
+TOTAL                 $28.21
+
+PAYMENT METHOD: VISA ****1234
+APPROVED
+
+Thank you for shopping at Walmart!
+Visit us again soon!
+

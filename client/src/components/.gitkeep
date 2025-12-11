@@ -1,0 +1,11 @@
+# Components Directory
+
+Place your reusable React components here.
+
+Example structure:
+- Button.jsx
+- Card.jsx
+- Modal.jsx
+- Navbar.jsx
+- etc.
+
