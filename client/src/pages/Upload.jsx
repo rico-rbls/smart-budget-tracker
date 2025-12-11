@@ -1,70 +1,206 @@
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import ReceiptUploader from "../components/ReceiptUploader";
+import OCRResult from "../components/OCRResult";
+import { createTransaction } from "../services/transactions";
+
 const Upload = () => {
+  const navigate = useNavigate();
+  const [ocrData, setOcrData] = useState(null);
+  const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(null);
+
+  const handleUploadSuccess = (data) => {
+    setError(null);
+    setSuccess("Receipt uploaded and processed successfully!");
+    setOcrData(data);
+
+    // Clear success message after 3 seconds
+    setTimeout(() => setSuccess(null), 3000);
+  };
+
+  const handleUploadError = (errorMessage) => {
+    setError(errorMessage);
+    setSuccess(null);
+
+    // Clear error message after 5 seconds
+    setTimeout(() => setError(null), 5000);
+  };
+
+  const handleSaveTransaction = async (transactionData) => {
+    const result = await createTransaction(transactionData);
+
+    if (result.success) {
+      setSuccess("Transaction saved successfully!");
+      setOcrData(null);
+
+      // Redirect to transactions page after 2 seconds
+      setTimeout(() => {
+        navigate("/transactions");
+      }, 2000);
+    } else {
+      setError(result.error || "Failed to save transaction");
+    }
+  };
+
+  const handleCancel = () => {
+    setOcrData(null);
+    setError(null);
+    setSuccess(null);
+  };
+
   return (
-    <div className="max-w-3xl mx-auto">
-      <div className="bg-white rounded-lg shadow p-6">
-        <h2 className="text-2xl font-bold text-gray-900 mb-6">
-          Upload Receipt
-        </h2>
-
-        <div className="border-2 border-dashed border-gray-300 rounded-lg p-12 text-center hover:border-indigo-500 transition-colors cursor-pointer">
-          <svg
-            className="w-16 h-16 text-gray-400 mx-auto mb-4"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
-            />
-          </svg>
-          <p className="text-lg font-medium text-gray-900 mb-2">
-            Drop your receipt here
-          </p>
-          <p className="text-sm text-gray-500 mb-4">
-            or click to browse files
-          </p>
-          <p className="text-xs text-gray-400">
-            Supports JPG, PNG, PDF (max 5MB)
-          </p>
-        </div>
-
-        <div className="mt-6">
-          <h3 className="text-sm font-medium text-gray-900 mb-3">
-            How it works:
-          </h3>
-          <ol className="space-y-2 text-sm text-gray-600">
-            <li className="flex items-start">
-              <span className="flex-shrink-0 w-6 h-6 bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center mr-3 mt-0.5">
-                1
-              </span>
-              <span>Upload a photo or scan of your receipt</span>
-            </li>
-            <li className="flex items-start">
-              <span className="flex-shrink-0 w-6 h-6 bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center mr-3 mt-0.5">
-                2
-              </span>
-              <span>
-                Our OCR technology extracts merchant, amount, and date
-              </span>
-            </li>
-            <li className="flex items-start">
-              <span className="flex-shrink-0 w-6 h-6 bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center mr-3 mt-0.5">
-                3
-              </span>
-              <span>
-                Transaction is automatically categorized and added to your
-                records
-              </span>
-            </li>
-          </ol>
-        </div>
+    <div className="space-y-6">
+      <div className="flex items-center justify-between">
+        <h2 className="text-2xl font-bold text-gray-900">Upload Receipt</h2>
+        <button
+          onClick={() => navigate("/transactions")}
+          className="px-4 py-2 text-indigo-600 hover:text-indigo-700 font-medium"
+        >
+          View All Transactions →
+        </button>
       </div>
+
+      {/* Success Message */}
+      {success && (
+        <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+          <div className="flex items-center gap-2">
+            <svg
+              className="w-5 h-5 text-green-600"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+              />
+            </svg>
+            <span className="text-sm font-medium text-green-800">
+              {success}
+            </span>
+          </div>
+        </div>
+      )}
+
+      {/* Error Message */}
+      {error && (
+        <div className="bg-red-50 border border-red-200 rounded-lg p-4">
+          <div className="flex items-center gap-2">
+            <svg
+              className="w-5 h-5 text-red-600"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+              />
+            </svg>
+            <span className="text-sm font-medium text-red-800">{error}</span>
+          </div>
+        </div>
+      )}
+
+      {/* Upload Instructions */}
+      {!ocrData && (
+        <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+          <div className="flex items-start gap-3">
+            <svg
+              className="w-6 h-6 text-blue-600 shrink-0 mt-0.5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+              />
+            </svg>
+            <div>
+              <h3 className="text-sm font-semibold text-blue-900 mb-1">
+                How to upload receipts
+              </h3>
+              <ul className="text-sm text-blue-800 space-y-1 list-disc list-inside">
+                <li>Take a clear photo of your receipt</li>
+                <li>Ensure the text is readable and not blurry</li>
+                <li>Supported formats: JPG, PNG, PDF (max 5MB)</li>
+                <li>
+                  Our OCR will automatically extract merchant, amount, and date
+                </li>
+                <li>Review and edit the extracted data before saving</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Receipt Uploader or OCR Result */}
+      {!ocrData ? (
+        <ReceiptUploader
+          onUploadSuccess={handleUploadSuccess}
+          onUploadError={handleUploadError}
+        />
+      ) : (
+        <OCRResult
+          ocrData={ocrData}
+          onSave={handleSaveTransaction}
+          onCancel={handleCancel}
+        />
+      )}
+
+      {/* Recent Uploads Info */}
+      {!ocrData && (
+        <div className="bg-white rounded-lg shadow p-6">
+          <h3 className="text-lg font-semibold text-gray-900 mb-4">
+            What happens after upload?
+          </h3>
+          <div className="grid md:grid-cols-3 gap-4">
+            <div className="flex items-start gap-3">
+              <div className="w-8 h-8 bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center font-bold shrink-0">
+                1
+              </div>
+              <div>
+                <h4 className="font-medium text-gray-900">OCR Processing</h4>
+                <p className="text-sm text-gray-600 mt-1">
+                  We extract merchant name, amount, and date from your receipt
+                </p>
+              </div>
+            </div>
+            <div className="flex items-start gap-3">
+              <div className="w-8 h-8 bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center font-bold shrink-0">
+                2
+              </div>
+              <div>
+                <h4 className="font-medium text-gray-900">Review & Edit</h4>
+                <p className="text-sm text-gray-600 mt-1">
+                  Verify the extracted data and make corrections if needed
+                </p>
+              </div>
+            </div>
+            <div className="flex items-start gap-3">
+              <div className="w-8 h-8 bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center font-bold shrink-0">
+                3
+              </div>
+              <div>
+                <h4 className="font-medium text-gray-900">Save Transaction</h4>
+                <p className="text-sm text-gray-600 mt-1">
+                  Transaction is saved and appears in your transaction list
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
 
 export default Upload;
-
