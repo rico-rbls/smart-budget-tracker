@@ -1,8 +1,12 @@
+import { formatCurrency } from "../utils/currency";
+
 const Reports = () => {
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
-        <h2 className="text-2xl font-bold text-gray-900">Reports & Analytics</h2>
+        <h2 className="text-2xl font-bold text-gray-900">
+          Reports & Analytics
+        </h2>
         <div className="flex space-x-2">
           <select className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
             <option>This Month</option>
@@ -21,22 +25,30 @@ const Reports = () => {
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
         <div className="bg-white rounded-lg shadow p-6">
           <p className="text-sm font-medium text-gray-600">Total Income</p>
-          <p className="text-2xl font-bold text-green-600 mt-2">$0.00</p>
+          <p className="text-2xl font-bold text-green-600 mt-2">
+            {formatCurrency(0)}
+          </p>
           <p className="text-xs text-gray-500 mt-1">This month</p>
         </div>
         <div className="bg-white rounded-lg shadow p-6">
           <p className="text-sm font-medium text-gray-600">Total Expenses</p>
-          <p className="text-2xl font-bold text-red-600 mt-2">$0.00</p>
+          <p className="text-2xl font-bold text-red-600 mt-2">
+            {formatCurrency(0)}
+          </p>
           <p className="text-xs text-gray-500 mt-1">This month</p>
         </div>
         <div className="bg-white rounded-lg shadow p-6">
           <p className="text-sm font-medium text-gray-600">Net Savings</p>
-          <p className="text-2xl font-bold text-blue-600 mt-2">$0.00</p>
+          <p className="text-2xl font-bold text-blue-600 mt-2">
+            {formatCurrency(0)}
+          </p>
           <p className="text-xs text-gray-500 mt-1">This month</p>
         </div>
         <div className="bg-white rounded-lg shadow p-6">
           <p className="text-sm font-medium text-gray-600">Avg Daily Spend</p>
-          <p className="text-2xl font-bold text-gray-900 mt-2">$0.00</p>
+          <p className="text-2xl font-bold text-gray-900 mt-2">
+            {formatCurrency(0)}
+          </p>
           <p className="text-xs text-gray-500 mt-1">This month</p>
         </div>
       </div>
@@ -154,4 +166,3 @@ const Reports = () => {
 };
 
 export default Reports;
-

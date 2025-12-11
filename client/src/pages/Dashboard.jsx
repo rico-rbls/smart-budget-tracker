@@ -1,4 +1,5 @@
 import { useAuth } from "../context/AuthContext";
+import { formatCurrency } from "../utils/currency";
 
 const Dashboard = () => {
   const { user } = useAuth();
@@ -21,7 +22,9 @@ const Dashboard = () => {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-gray-600">Total Spent</p>
-              <p className="text-2xl font-bold text-gray-900 mt-2">$0.00</p>
+              <p className="text-2xl font-bold text-gray-900 mt-2">
+                {formatCurrency(0)}
+              </p>
             </div>
             <div className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center">
               <svg
@@ -46,7 +49,9 @@ const Dashboard = () => {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-gray-600">Budget Left</p>
-              <p className="text-2xl font-bold text-gray-900 mt-2">$0.00</p>
+              <p className="text-2xl font-bold text-gray-900 mt-2">
+                {formatCurrency(0)}
+              </p>
             </div>
             <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
               <svg
@@ -205,4 +210,3 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
-

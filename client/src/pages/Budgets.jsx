@@ -1,3 +1,5 @@
+import { formatCurrency } from "../utils/currency";
+
 const Budgets = () => {
   return (
     <div className="space-y-6">
@@ -27,17 +29,23 @@ const Budgets = () => {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div className="bg-white rounded-lg shadow p-6">
           <p className="text-sm font-medium text-gray-600">Total Budget</p>
-          <p className="text-3xl font-bold text-gray-900 mt-2">$0.00</p>
+          <p className="text-3xl font-bold text-gray-900 mt-2">
+            {formatCurrency(0)}
+          </p>
           <p className="text-xs text-gray-500 mt-1">This month</p>
         </div>
         <div className="bg-white rounded-lg shadow p-6">
           <p className="text-sm font-medium text-gray-600">Total Spent</p>
-          <p className="text-3xl font-bold text-gray-900 mt-2">$0.00</p>
+          <p className="text-3xl font-bold text-gray-900 mt-2">
+            {formatCurrency(0)}
+          </p>
           <p className="text-xs text-gray-500 mt-1">This month</p>
         </div>
         <div className="bg-white rounded-lg shadow p-6">
           <p className="text-sm font-medium text-gray-600">Remaining</p>
-          <p className="text-3xl font-bold text-green-600 mt-2">$0.00</p>
+          <p className="text-3xl font-bold text-green-600 mt-2">
+            {formatCurrency(0)}
+          </p>
           <p className="text-xs text-gray-500 mt-1">This month</p>
         </div>
       </div>
@@ -105,4 +113,3 @@ const Budgets = () => {
 };
 
 export default Budgets;
-
