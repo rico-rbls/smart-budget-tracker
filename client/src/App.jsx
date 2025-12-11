@@ -1,90 +1,39 @@
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Navigate,
-} from "react-router-dom";
-import { AuthProvider } from "./context/AuthContext";
-import ProtectedRoute from "./components/ProtectedRoute";
-import Layout from "./components/Layout";
-
-// Pages
-import Login from "./pages/Login";
-import Register from "./pages/Register";
-import Dashboard from "./pages/Dashboard";
-import Upload from "./pages/Upload";
-import Transactions from "./pages/Transactions";
-import Budgets from "./pages/Budgets";
-import Reports from "./pages/Reports";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function App() {
   return (
     <Router>
-      <AuthProvider>
-        <Routes>
-          {/* Public routes */}
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
+      <div className="min-h-screen bg-gray-50">
+        <header className="bg-white shadow">
+          <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+            <h1 className="text-3xl font-bold text-gray-900">
+              💰 Smart Budget Tracker
+            </h1>
+          </div>
+        </header>
 
-          {/* Protected routes */}
-          <Route
-            path="/dashboard"
-            element={
-              <ProtectedRoute>
-                <Layout>
-                  <Dashboard />
-                </Layout>
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/upload"
-            element={
-              <ProtectedRoute>
-                <Layout>
-                  <Upload />
-                </Layout>
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/transactions"
-            element={
-              <ProtectedRoute>
-                <Layout>
-                  <Transactions />
-                </Layout>
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/budgets"
-            element={
-              <ProtectedRoute>
-                <Layout>
-                  <Budgets />
-                </Layout>
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/reports"
-            element={
-              <ProtectedRoute>
-                <Layout>
-                  <Reports />
-                </Layout>
-              </ProtectedRoute>
-            }
-          />
-
-          {/* Redirect root to dashboard */}
-          <Route path="/" element={<Navigate to="/dashboard" replace />} />
-
-          {/* 404 redirect */}
-          <Route path="*" element={<Navigate to="/dashboard" replace />} />
-        </Routes>
-      </AuthProvider>
+        <main className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <div className="px-4 py-6 sm:px-0">
+                  <div className="border-4 border-dashed border-gray-200 rounded-lg h-96 flex items-center justify-center">
+                    <div className="text-center">
+                      <h2 className="text-2xl font-semibold text-gray-700 mb-4">
+                        Welcome to Smart Budget Tracker
+                      </h2>
+                      <p className="text-gray-500">
+                        Your personal finance management solution
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              }
+            />
+          </Routes>
+        </main>
+      </div>
     </Router>
   );
 }
